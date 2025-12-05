@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,7 +41,14 @@ public class Frontend {
     private JList<String> vocabJList;
     private JLabel quizLabel;
     private JTextField answerField;
+    private JPanel answerContainer;
+    private JPanel mcPanel;
+    private JButton[] optionButtons;
     private Vocab currentQuiz;
+    private boolean mcMode = false;
+    private int correctCount = 0;
+    private int totalCount = 0;
+    private JLabel statsLabel;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -125,17 +133,36 @@ public class Frontend {
         quizLabel.setFont(quizLabel.getFont().deriveFont(16f));
         right.add(quizLabel, BorderLayout.NORTH);
 
+        answerContainer = new JPanel(new BorderLayout(4,4));
         answerField = new JTextField();
-        right.add(answerField, BorderLayout.CENTER);
+        answerContainer.add(answerField, BorderLayout.CENTER);
+
+        mcPanel = new JPanel(new GridLayout(2,2,5,5));
+        optionButtons = new JButton[4];
+        for (int i = 0; i < 4; i++) {
+            optionButtons[i] = new JButton();
+            optionButtons[i].setVisible(false);
+            final int idx = i;
+            optionButtons[i].addActionListener(e -> checkMCAnswer(optionButtons[idx].getText()));
+            mcPanel.add(optionButtons[i]);
+        }
+        answerContainer.add(mcPanel, BorderLayout.SOUTH);
+        right.add(answerContainer, BorderLayout.CENTER);
 
         JPanel quizBtns = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton startQuiz = new JButton("Start Quiz");
         startQuiz.addActionListener(e -> startQuiz());
         quizBtns.add(startQuiz);
+        JCheckBox mcToggle = new JCheckBox("Multiple-Choice");
+        mcToggle.addActionListener(e -> toggleMC(mcToggle.isSelected()));
+        quizBtns.add(mcToggle);
         JButton checkBtn = new JButton("Überprüfen");
         checkBtn.addActionListener(e -> checkAnswer());
         quizBtns.add(checkBtn);
         right.add(quizBtns, BorderLayout.SOUTH);
+
+        statsLabel = new JLabel("Richtig: 0 / 0", SwingConstants.CENTER);
+        right.add(statsLabel, BorderLayout.NORTH);
 
         p.add(left);
         p.add(right);
@@ -180,6 +207,14 @@ public class Frontend {
         quizLabel.setText("Übersetze: " + currentQuiz.de);
         answerField.setText("");
         answerField.requestFocusInWindow();
+        if (mcMode) {
+            populateMCOptions(currentQuiz);
+            answerField.setVisible(false);
+            for (JButton b : optionButtons) b.setVisible(true);
+        } else {
+            answerField.setVisible(true);
+            for (JButton b : optionButtons) b.setVisible(false);
+        }
     }
 
     private void checkAnswer() {
@@ -187,18 +222,82 @@ public class Frontend {
             JOptionPane.showMessageDialog(frame, "Starte zuerst das Quiz.");
             return;
         }
+        if (mcMode) {
+            JOptionPane.showMessageDialog(frame, "Bitte Multiple-Choice-Antworten verwenden oder Multiple-Choice ausschalten.");
+            return;
+        }
         String ans = answerField.getText().trim();
         if (ans.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "Bitte eine Antwort eingeben.");
             return;
         }
+        totalCount++;
         if (ans.equalsIgnoreCase(currentQuiz.en)) {
+            correctCount++;
             JOptionPane.showMessageDialog(frame, "Richtig!");
         } else {
             JOptionPane.showMessageDialog(frame, "Falsch. Richtige Antwort: " + currentQuiz.en);
         }
+        updateStats();
         // next
         startQuiz();
+    }
+
+    private void checkMCAnswer(String chosen) {
+        if (currentQuiz == null) return;
+        totalCount++;
+        if (chosen.equalsIgnoreCase(currentQuiz.en)) {
+            correctCount++;
+            JOptionPane.showMessageDialog(frame, "Richtig!");
+        } else {
+            JOptionPane.showMessageDialog(frame, "Falsch. Richtige Antwort: " + currentQuiz.en);
+        }
+        updateStats();
+        startQuiz();
+    }
+
+    private void toggleMC(boolean on) {
+        this.mcMode = on;
+        if (on) {
+            answerField.setVisible(false);
+            for (JButton b : optionButtons) b.setVisible(true);
+        } else {
+            answerField.setVisible(true);
+            for (JButton b : optionButtons) b.setVisible(false);
+        }
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    private void populateMCOptions(Vocab correct) {
+        List<String> opts = new ArrayList<>();
+        opts.add(correct.en);
+        // collect other answers
+        for (Vocab v : vocabList) {
+            if (!v.en.equalsIgnoreCase(correct.en)) opts.add(v.en);
+        }
+        // shuffle and pick up to 3 distractors
+        Collections.shuffle(opts, rng);
+        List<String> choices = new ArrayList<>();
+        choices.add(correct.en);
+        int added = 0;
+        for (String s : opts) {
+            if (s.equals(correct.en)) continue;
+            choices.add(s);
+            added++;
+            if (added >= 3) break;
+        }
+        // if not enough distractors, fill with empty strings
+        while (choices.size() < 4) choices.add("(keine)");
+        Collections.shuffle(choices, rng);
+        for (int i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].setText(choices.get(i));
+            optionButtons[i].setVisible(true);
+        }
+    }
+
+    private void updateStats() {
+        statsLabel.setText("Richtig: " + correctCount + " / " + totalCount);
     }
 
     private void saveToFile() {
