@@ -1,4 +1,6 @@
+import java.util.Arrays;
 import ADT.DynArray;
+
 public class Set {
     private String name;
     private String lang1;
@@ -14,11 +16,9 @@ public class Set {
     }
 
     public void printSet() {
-        for (int i = 0; i < pairs.getLength(); i++) {
-            Object pair = pairs.getItem(i);
-            for (String string : pair) {
-                
-            }
+        for (int i = 0; i < pairs.getLength(); i++) { //dynarray iterieren
+            Object p = pairs.getItem(i); //p für pair
+            System.out.println(Arrays.toString((String[]) p));  //Type casting
         }
     }
 
