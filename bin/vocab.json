@@ -2,31 +2,18 @@
   "name": "EN-DE",
   "lang1": "en",
   "lang2": "de",
-  "pairs": {
-    "first": {
-      "inhalt": [
-        "Bank",
-        "bench / bank"
-      ],
-      "nachfolger": {
-        "inhalt": [
-          "Cat",
-          "Katze"
-        ],
-        "nachfolger": {
-          "inhalt": [
-            "Dog",
-            "Hund"
-          ]
-        }
-      }
-    },
-    "last": {
-      "inhalt": [
-        "Dog",
-        "Hund"
-      ]
-    },
-    "length": 3
-  }
+  "pairs": [
+    [
+      "Bank",
+      "bench / bank"
+    ],
+    [
+      "Cat",
+      "Katze"
+    ],
+    [
+      "Dog",
+      "Hund"
+    ]
+  ]
 }
