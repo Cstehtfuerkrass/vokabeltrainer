@@ -5,7 +5,7 @@ public class Set {
     private String name;
     private String lang1;
     private String lang2;
-    private DynArray pairs = new DynArray();
+    public DynArray pairs = new DynArray();
 
     public void addPair(String[] pair) {
         pairs.append(pair);
