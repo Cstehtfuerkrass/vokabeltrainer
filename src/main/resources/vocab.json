@@ -1,0 +1,19 @@
+{
+  "name": "EN-DE",
+  "lang1": "en",
+  "lang2": "de",
+  "pairs": [
+    [
+      "Bank",
+      "bench / bank"
+    ],
+    [
+      "Cat",
+      "Katze"
+    ],
+    [
+      "Dog",
+      "Hund"
+    ]
+  ]
+}
