@@ -20,11 +20,20 @@ public class DynArray {
     
     public Object getItem(int index) {
         Element search = this.first;
-        for(int i = 0; i < index; i++) {
+        for (int i = 0; i < index; i++) {
             search = search.nachfolger;
         }
-        
+
         return search.inhalt;
+    }
+    // Eigene Methode um gesamtes Element, anstatt Inhalt zu bekommen
+    public Element getElement(int index) {
+        Element search = this.first;
+        for (int i = 0; i < index; i++) {
+            search = search.nachfolger;
+        }
+
+        return search;
     }
     
     public void append(Object obj) {
@@ -103,5 +112,9 @@ public class DynArray {
     public int getLength() {
         return this.length;
     }
-    
+
+    // Eigene Shuffle Methode mit Fisher Yates Shuffle
+    public void shuffle() {
+
+    }
 }

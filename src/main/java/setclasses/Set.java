@@ -1,56 +1,42 @@
 package setclasses;
-import java.util.Arrays;
+
 import ADT.DynArray;
 
+//Repräsentiert ein komplettes Set an Vokabeln
 public class Set {
     private String name;
-    private String lang1;
-    private String lang2;
-    public DynArray pairs = new DynArray();
+    private Languages lang1;
+    private Languages lang2;
+    public DynArray vocabularies = new DynArray();
 
-    public void addPair(String[] pair) {
-        pairs.append(pair);
+    public void addVocab(String[] vocab1, String[] vocab2) {
+        Vocabulary vocab = new Vocabulary(vocab1, vocab2);
+        vocabularies.append(vocab);
     }
 
-    public void deletePair(int i) {
-        pairs.delete(i);
+    public void delVocab(int index) {
+        vocabularies.delete(index);
     }
 
-    public void printSet() {
-        for (int i = 0; i < pairs.getLength(); i++) { //dynarray iterieren
-            Object p = pairs.getItem(i); //p für pair
-            System.out.println(Arrays.toString((String[]) p));  //Type casting
-        }
+    public Set(String name, Languages lang1, Languages lang2) {
+        this.name = name;
+        this.lang1 = lang1;
+        this.lang2 = lang2;
     }
 
-    
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLang1() {
+    public Languages getLang1() {
         return lang1;
     }
 
-    public void setLang1(String lang1) {
-        this.lang1 = lang1;
-    }
-
-    public String getLang2() {
+    public Languages getLang2() {
         return lang2;
     }
 
-    public void setLang2(String lang2) {
-        this.lang2 = lang2;
-    }
-
-    public Set(String name, String lang1, String lang2) {
-        this.name = name;
-        this.lang1 = lang1;
-        this.lang2 = lang2;
+    public DynArray getVocabularies() {
+        return vocabularies;
     }
 }
