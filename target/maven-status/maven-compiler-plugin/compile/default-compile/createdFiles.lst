@@ -1,0 +1,14 @@
+manager/SetManager.class
+setclasses/Vocabulary.class
+setclasses/Languages.class
+ADT/DynArray.class
+setclasses/Set.class
+rating/ExamUnit.class
+ADT/Queue.class
+app/App.class
+gui/ExamController.class
+ADT/Element.class
+rating/RatingSystem.class
+rating/ExamMode.class
+gui/Main.class
+ADT/Stack.class

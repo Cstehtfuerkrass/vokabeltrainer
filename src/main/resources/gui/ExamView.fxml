@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+    prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ExamController">
+    <center>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0"
+            BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="promptLabel" text="Lade Vokabel-Set..." textAlignment="CENTER"
+                    wrapText="true">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Label fx:id="contextLabel" text="(von [Sprache1] nach [Sprache2])" />
+                <TextField fx:id="inputField" onAction="#handleCheckAnswer"
+                    promptText="Deine Antwort hier eingeben" />
+                <Button fx:id="checkButton" mnemonicParsing="false" onAction="#handleCheckAnswer"
+                    text="Prüfen" />
+                <Label fx:id="feedbackLabel" text="Status: Bereit." textFill="#318721">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </children>
+            <BorderPane.margin>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </BorderPane.margin>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0"
+            BorderPane.alignment="CENTER_RIGHT">
+            <children>
+                <Label fx:id="progressLabel" text="0/0 (0 richtig)" />
+                <Button fx:id="restartButton" mnemonicParsing="false" onAction="#handleRestartExam"
+                    text="Neustart" visible="false">
+                    <HBox.margin>
+                        <Insets left="15.0" right="15.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

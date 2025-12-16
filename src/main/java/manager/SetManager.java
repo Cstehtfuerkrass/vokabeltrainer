@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 public class SetManager {
 
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final String BASE_PATH = "src\\main\\resources";
+    private final String BASE_PATH = "src/main/resources";
 
     public SetManager() {
         try {

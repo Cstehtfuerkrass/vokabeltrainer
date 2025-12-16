@@ -2,77 +2,54 @@
   "name": "Grundlagen Deutsch-Englisch",
   "lang1": "DE",
   "lang2": "EN",
-  "vocabularies": {
-    "first": {
-      "inhalt": {
-        "vocab1": [
-          "Haus",
-          "Zuhause",
-          ""
-        ],
-        "vocab2": [
-          "house",
-          "home",
-          ""
-        ]
-      },
-      "nachfolger": {
-        "inhalt": {
-          "vocab1": [
-            "Hund",
-            "",
-            ""
-          ],
-          "vocab2": [
-            "dog",
-            "",
-            ""
-          ]
-        },
-        "nachfolger": {
-          "inhalt": {
-            "vocab1": [
-              "Katze",
-              "",
-              ""
-            ],
-            "vocab2": [
-              "cat",
-              "",
-              ""
-            ]
-          },
-          "nachfolger": {
-            "inhalt": {
-              "vocab1": [
-                "Apfel",
-                "",
-                ""
-              ],
-              "vocab2": [
-                "apple",
-                "",
-                ""
-              ]
-            }
-          }
-        }
-      }
+  "vocabulariesAsArray": [
+    {
+      "vocab1": [
+        "Haus",
+        "Zuhause",
+        ""
+      ],
+      "vocab2": [
+        "house",
+        "home",
+        ""
+      ]
     },
-    "last": {
-      "inhalt": {
-        "vocab1": [
-          "Apfel",
-          "",
-          ""
-        ],
-        "vocab2": [
-          "apple",
-          "",
-          ""
-        ]
-      }
+    {
+      "vocab1": [
+        "Hund",
+        "",
+        ""
+      ],
+      "vocab2": [
+        "dog",
+        "",
+        ""
+      ]
     },
-    "length": 4
-  }
+    {
+      "vocab1": [
+        "Katze",
+        "",
+        ""
+      ],
+      "vocab2": [
+        "cat",
+        "",
+        ""
+      ]
+    },
+    {
+      "vocab1": [
+        "Apfel",
+        "",
+        ""
+      ],
+      "vocab2": [
+        "apple",
+        "",
+        ""
+      ]
+    }
+  ]
 }
