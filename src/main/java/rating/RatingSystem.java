@@ -14,26 +14,22 @@ import java.util.Random;
 public class RatingSystem {
 
     private final Set vocabularySet;
-    private final ExamMode mode; // UMBENANNT
-    private final Queue examQueue; // NICHT generisch
+    private final ExamMode mode;
+    private final Queue<ExamUnit> examQueue; // Generische Queue
     private int correctAnswers;
     private int totalAttempts;
     private final Random random = new Random();
 
-    public RatingSystem(Set vocabularySet, ExamMode mode) { // UMBENANNT
+    public RatingSystem(Set vocabularySet, ExamMode mode) {
         this.vocabularySet = vocabularySet;
         this.mode = mode;
-        this.examQueue = new Queue();
+        this.examQueue = new Queue<>(); // Generische Instanziierung
         this.correctAnswers = 0;
         this.totalAttempts = 0;
 
         initializeExam();
     }
 
-    /**
-     * Erstellt eine ExamUnit basierend auf dem gewählten Modus für eine gegebene
-     * Vokabel.
-     */
     private ExamUnit createExamUnit(Vocabulary vocab) {
 
         boolean lang1ToLang2 = (mode == ExamMode.LANG1_TO_LANG2);
@@ -50,39 +46,29 @@ public class RatingSystem {
     }
 
     /**
-     * Füllt die interne Warteschlange in der Sequenz, wie sie im Set gespeichert
-     * ist.
+     * Füllt die interne Warteschlange. Kein Casting nötig, da DynArray<Vocabulary>
+     * typsicher ist.
      */
     private void initializeExam() {
-        DynArray vocabularies = vocabularySet.getVocabularies();
+        DynArray<Vocabulary> vocabularies = vocabularySet.getVocabularies();
 
         for (int i = 0; i < vocabularies.getLength(); i++) {
 
-            // Casting ist notwendig, da DynArray nicht generisch ist
-            Vocabulary vocab = (Vocabulary) vocabularies.getItem(i);
+            Vocabulary vocab = vocabularies.getItem(i); // KEIN CASTING
 
             ExamUnit unit = createExamUnit(vocab);
             examQueue.enqueue(unit);
         }
     }
 
-    /**
-     * Liefert die nächste Vokabel, ohne sie zu entfernen (nutzt head() der
-     * Lehrer-Queue).
-     */
     public ExamUnit getNextUnit() {
-        // Casting ist notwendig, da die Queue nicht generisch ist
         if (examQueue.isEmpty())
             return null;
-        return (ExamUnit) examQueue.head();
+        return examQueue.head(); // KEIN CASTING
     }
 
-    /**
-     * Verarbeitet die Antwort des Benutzers und steuert die Warteschlange.
-     */
     public boolean rateAndProceed(String answer) {
-        // Casting ist notwendig
-        ExamUnit currentUnit = (ExamUnit) examQueue.dequeue();
+        ExamUnit currentUnit = examQueue.dequeue(); // KEIN CASTING
 
         if (currentUnit == null)
             return false;
@@ -119,11 +105,8 @@ public class RatingSystem {
         return totalAttempts;
     }
 
-    /**
-     * Hinweis: Da die gegebene Queue keine size()-Methode hat,
-     * geben wir hier 0 zurück. Diese Methode kann später implementiert werden.
-     */
     public int getRemainingVocabularies() {
+        // Implementierung würde eine size()-Methode in ADT/Queue erfordern.
         return 0;
     }
 }

@@ -1,43 +1,66 @@
 package ADT;
 
-public class Stack
+/**
+ * Stapel (Stack), implementiert als einfach verkettete Liste (GENERISCH).
+ */
+public class Stack<T> // <--- NEU: Klasse ist generisch
 {
-    // instance variables - replace the example below with your own
-    
-    private Element tos;
+    // Die Spitze des Stapels (Top of Stack)
+    private Element<T> tos; // <--- NEU: Typ Element<T>
 
     /**
      * Constructor for objects of class Stack
      */
-    public Stack()
-    {
+    public Stack() {
         tos = null;
     }
 
-    public boolean isEmpty()
-    {
+    /**
+     * Prüft, ob der Stapel leer ist.
+     */
+    public boolean isEmpty() {
         return tos == null;
     }
-    
-    public Object top()
+
+    /**
+     * Liefert das oberste Element, ohne es zu entfernen (peek).
+     * 
+     * @return Das oberste Element vom Typ T, oder null, wenn der Stack leer ist.
+     */
+    public T top() // <--- NEU: Rückgabetyp T
     {
+        if (tos == null) {
+            return null;
+        }
         return tos.inhalt;
     }
-    
-    public void push(Object element)
+
+    /**
+     * Fügt ein Element vom Typ T oben auf den Stapel hinzu (push).
+     * 
+     */
+    public void push(T element) // <--- NEU: Parameter ist T
     {
-        Element hilf = new Element();
+        Element<T> hilf = new Element<>(); // <--- NEU: Element<T> wird instanziiert
         hilf.inhalt = element;
         hilf.nachfolger = tos;
         tos = hilf;
-        
     }
-    
-    public Object pop()
+
+    /**
+     * Entfernt und liefert das oberste Element vom Stapel (pop).
+     * 
+     * @return Das entfernte Element vom Typ T, oder null, wenn der Stack leer ist.
+     * 
+     */
+    public T pop() // <--- NEU: Rückgabetyp T
     {
-        Object hilf = tos.inhalt;
+        if (tos == null) {
+            return null;
+        }
+        T hilf = tos.inhalt; // <--- Nutzt T
         tos = tos.nachfolger;
         return hilf;
     }
-    
+
 }
