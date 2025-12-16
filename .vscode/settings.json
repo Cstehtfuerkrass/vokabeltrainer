@@ -1,14 +1,9 @@
 {
-<<<<<<< HEAD
-    "java.configuration.updateBuildConfiguration": "interactive"
-}
-=======
-    "java.project.sourcePaths": [
-        "src"
-    ],
-    "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib\\gson-2.13.1.jar"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-25",
+            "path": "/home/constantin/.sdkman/candidates/java/25-tem"
+        }
     ]
 }
->>>>>>> 41019116429f8938cab8d670754e78f71b283be5
