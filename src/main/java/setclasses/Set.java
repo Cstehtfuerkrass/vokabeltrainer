@@ -10,8 +10,13 @@ public class Set {
     private Languages lang1;
     private Languages lang2;
 
-    // Typsichere Speicherung in DynArray<Vocabulary>
-    public DynArray<Vocabulary> vocabularies = new DynArray<>();
+    // 1. Die interne Datenstruktur: MUSS transient sein, damit GSON die
+    // ADT-Struktur ignoriert.
+    public transient DynArray<Vocabulary> vocabularies = new DynArray<>();
+
+    // 2. Das GSON-Speicherfeld: Hält die Vokabeln als einfaches Array FÜR die
+    // JSON-Datei.
+    private Vocabulary[] vocabulariesAsArray;
 
     public Set(String name, Languages lang1, Languages lang2) {
         this.name = name;
@@ -28,6 +33,37 @@ public class Set {
         Vocabulary removedVocab = vocabularies.getItem(index);
         vocabularies.delete(index);
         return removedVocab;
+    }
+
+    // --- GSON-Helfer-Methoden ---
+
+    /**
+     * Kopiert die Vokabeln aus dem DynArray in ein einfaches Array für GSON VOR dem
+     * Speichern.
+     */
+    public void copyToPlainArray() {
+        this.vocabulariesAsArray = new Vocabulary[this.vocabularies.getLength()];
+        for (int i = 0; i < this.vocabularies.getLength(); i++) {
+            this.vocabulariesAsArray[i] = this.vocabularies.getItem(i);
+        }
+    }
+
+    /**
+     * Kopiert die Vokabeln aus dem einfachen Array zurück in das DynArray NACH dem
+     * Laden.
+     */
+    public void copyToDynArray() {
+        // Zuerst das DynArray neu initialisieren (es war transient).
+        this.vocabularies = new DynArray<>();
+        if (this.vocabulariesAsArray != null) {
+            for (Vocabulary vocab : this.vocabulariesAsArray) {
+                if (vocab != null) {
+                    this.vocabularies.append(vocab);
+                }
+            }
+        }
+        // Das GSON-Feld kann optional auf null gesetzt werden, um Speicher freizugeben.
+        this.vocabulariesAsArray = null;
     }
 
     // --- Getters ---
