@@ -1,0 +1,8 @@
+# wird automatisch neu generiert und ist Session spezifisch
+# class files außerdem OS spezifisch
+/target/
+# IDE spezifisch
+/.vscode/
+# Speicher der Vokabelsets, können von Code her neu generiert werden
+# im Notfall tracken möglich
+/src/main/resources/*.json
