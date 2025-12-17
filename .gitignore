@@ -1,9 +1,23 @@
-# wird automatisch neu generiert und ist Session spezifisch
-# class files außerdem OS spezifisch
+# ----------------------------------------------------
+# 1. GENERIERTE BUILD-DATEIEN
+# ----------------------------------------------------
+# Ignoriert den kompletten Maven/Gradle Output Ordner
 /target/
-# IDE spezifisch
+
+# ----------------------------------------------------
+# 2. IDE SPEZIFISCHE DATEIEN (VS Code)
+# ----------------------------------------------------
+# Ignoriert den gesamten .vscode-Ordner (empfohlen)
 .vscode/
+# Ignoriert die settings.json, falls sie außerhalb von .vscode liegt (optional)
 settings.json
-# Speicher der Vokabelsets, können von Code her neu generiert werden
-# im Notfall tracken möglich
+# Alle generierten Class-Files, falls sie nicht im target liegen (oft redundant, aber sicher)
+*.class
+
+# ----------------------------------------------------
+# 3. RESSCOURCEN (JSONs)
+# ----------------------------------------------------
+# Ignoriert alle .json-Dateien direkt im resources-Ordner:
 /src/main/resources/*.json
+# Ignoriert alle .json-Dateien in allen Unterordnern des resources-Ordners (rekursiv):
+/src/main/resources/**/*.json
