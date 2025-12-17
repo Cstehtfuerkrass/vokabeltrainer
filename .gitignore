@@ -2,7 +2,8 @@
 # class files außerdem OS spezifisch
 /target/
 # IDE spezifisch
-/.vscode/
+.vscode/
+settings.json
 # Speicher der Vokabelsets, können von Code her neu generiert werden
 # im Notfall tracken möglich
 /src/main/resources/*.json
