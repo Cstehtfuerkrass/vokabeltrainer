@@ -31,17 +31,21 @@ public class RatingSystem {
     }
 
     private ExamUnit createExamUnit(Vocabulary vocab) {
-
+        // 1. Richtung bestimmen
         boolean lang1ToLang2 = (mode == ExamMode.LANG1_TO_LANG2);
 
         if (mode == ExamMode.RANDOM) {
             lang1ToLang2 = random.nextBoolean();
         }
 
+        // 2. Einheit erstellen
+        // Wir übergeben: Die Vokabel, die Gefragte Sprache, die Erwartete Sprache
         if (lang1ToLang2) {
-            return new ExamUnit(vocab, vocabularySet.getLang1(), vocabularySet.getLang2());
+            // Fall: Sprache 1 -> Sprache 2
+            return new ExamUnit(vocab, vocab.getLang1(), vocab.getLang2());
         } else {
-            return new ExamUnit(vocab, vocabularySet.getLang2(), vocabularySet.getLang1());
+            // Fall: Sprache 2 -> Sprache 1
+            return new ExamUnit(vocab, vocab.getLang2(), vocab.getLang1());
         }
     }
 

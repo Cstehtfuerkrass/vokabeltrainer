@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import setclasses.Set;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.nio.file.Paths;
 public class SetManager {
 
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final String BASE_PATH = "src/main/resources";
+    private final String BASE_PATH = "src/main/resources/vocab_sets/";
 
     public SetManager() {
         try {
@@ -34,18 +35,28 @@ public class SetManager {
     }
 
     public boolean saveSet(Set set) {
-        Path filePath = getFilePath(set.getName());
-
-        // HIER: VOR dem Speichern die Daten in das GSON-Array kopieren
-        set.copyToPlainArray();
-
-        try (FileWriter writer = new FileWriter(filePath.toFile())) {
-            gson.toJson(set, writer);
-            System.out.println("Set erfolgreich gespeichert unter: " + filePath.toAbsolutePath());
-            return true;
-        } catch (IOException e) {
-            System.err.println("Fehler beim Speichern des Sets '" + set.getName() + "': " + e.getMessage());
-            return false;
+        // 1. Ordner prüfen/erstellen
+        File directory = new File(BASE_PATH);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        
+        // 2. Den Pfad für die spezifische Datei zusammenbauen
+        // Beispiel: "src/main/resources/vocab_sets/" + "Vokabeln1" + ".json"
+        File file = new File(BASE_PATH + set.getName() + ".json");
+        
+        // 3. Mit GSON in die Datei schreiben
+        try (java.io.FileWriter writer = new java.io.FileWriter(file)) {
+            com.google.gson.Gson gson = new com.google.gson.GsonBuilder()
+                    .setPrettyPrinting() // Macht das JSON lesbar
+                    .create();
+            
+            gson.toJson(set, writer); // Schreibt das Set-Objekt als JSON
+            return true; // Speichern erfolgreich
+            
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            return false; // Fehler beim Speichern
         }
     }
 

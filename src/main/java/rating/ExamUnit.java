@@ -25,27 +25,50 @@ public class ExamUnit {
     /**
      * Bewertet die Antwort des Benutzers und aktualisiert den Status.
      */
-    public boolean rateAnswer(String answer) {
-        this.givenAnswer = answer.trim();
+    public boolean rateAnswer(String userAnswer) {
+        if (userAnswer == null || userAnswer.trim().isEmpty())
+            return false;
 
-        String[] targetVocabularies;
+        // 1. Die korrekten Lösungen aus dem Vokabel-Objekt holen
+        String[] correctWords = (this.expectedLanguage == vocabulary.getLang2())
+                ? vocabulary.getVocab2()
+                : vocabulary.getVocab1();
 
-        if (askedLanguage.equals(vocabulary.getLang1())) {
-            targetVocabularies = vocabulary.getVocab2();
-        } else {
-            targetVocabularies = vocabulary.getVocab1();
-        }
+        // 2. Die Eingabe des Nutzers an Kommas splitten (falls er mehrere eingibt)
+        // Beispiel: "bank, bench" wird zu ["bank", "bench"]
+        String[] userInputs = userAnswer.split("\\s*,\\s*");
 
-        // Prüft, ob die gegebene Antwort mit einer der möglichen Zielvokabeln
-        // übereinstimmt (case-insensitive)
-        for (String target : targetVocabularies) {
-            if (target != null && !target.trim().isEmpty() && target.trim().equalsIgnoreCase(givenAnswer)) {
-                this.isCorrect = true;
-                return true;
+        // 3. Prüfung: Jedes vom Nutzer eingegebene Wort muss korrekt sein
+        for (String input : userInputs) {
+            boolean inputFound = false;
+
+            for (String correct : correctWords) {
+                if (correct != null && correct.trim().equalsIgnoreCase(input.trim())) {
+                    inputFound = true;
+                    break;
+                }
+            }
+
+            // Wenn auch nur eines der eingegebenen Wörter nicht in der Liste ist: Falsch.
+            if (!inputFound) {
+                this.isCorrect = false;
+                return false;
             }
         }
-        this.isCorrect = false;
-        return false;
+
+        // Wenn wir hier ankommen, waren alle eingegebenen Wörter (egal ob eins oder
+        // viele) richtig.
+        this.isCorrect = true;
+        return true;
+    }
+    
+    // In ExamUnit.java hinzufügen:
+    public String getCorrectAnswersAsString() {
+        String[] correctWords = (this.expectedLanguage == vocabulary.getLang2())
+                ? vocabulary.getVocab2()
+                : vocabulary.getVocab1();
+
+        return String.join(", ", correctWords);
     }
 
     // --- Getters ---

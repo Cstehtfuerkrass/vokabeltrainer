@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane fx:id="mainTabPane" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE"
+    xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <tabs>
+        <Tab text="Vokabeln Lernen">
+            <fx:include source="ExamView.fxml" />
+        </Tab>
+        <Tab text="Sets Verwalten / Erstellen">
+            <fx:include source="CreateSetView.fxml" />
+        </Tab>
+    </tabs>
+</TabPane>

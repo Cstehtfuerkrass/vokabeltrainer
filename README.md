@@ -1,1 +1,1 @@
-Read me!
+GUI wird in der Konsole mit mvn:javafx run gestartet.
