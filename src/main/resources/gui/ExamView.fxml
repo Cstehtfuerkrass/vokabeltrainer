@@ -21,8 +21,13 @@
                 <HBox spacing="10.0" alignment="CENTER">
                     <children>
                         <Label text="Set wählen:" />
-                        <ComboBox fx:id="setSelectionCombo" onShowing="#refreshSetList" prefWidth="200.0"
+                        <ComboBox fx:id="setSelectionCombo" onShowing="#refreshSetList"
+                            prefWidth="150.0"
                             promptText="Set auswählen..." />
+
+                        <Label text="Modus:" />
+                        <ComboBox fx:id="modeComboBox" prefWidth="150.0" />
+
                         <Button onAction="#handleLoadSelectedSet" text="Laden &amp; Starten" />
                     </children>
                 </HBox>

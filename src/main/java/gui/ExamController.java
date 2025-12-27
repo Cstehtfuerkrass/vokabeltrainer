@@ -1,5 +1,7 @@
 package gui;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -13,6 +15,8 @@ public class ExamController {
 
     @FXML
     private ComboBox<String> setSelectionCombo;
+    @FXML
+    private ComboBox<rating.ExamMode> modeComboBox;
     @FXML
     private VBox examArea;
     @FXML
@@ -31,8 +35,12 @@ public class ExamController {
     private SetManager setManager = new SetManager();
 
     @FXML
-    public void initialize() {
-        refreshSetList();
+    public void initialize() { // <--- Keine Parameter (URL/ResourceBundle)
+        if (modeComboBox != null) {
+            modeComboBox.getItems().setAll(rating.ExamMode.values());
+            modeComboBox.setValue(rating.ExamMode.LANG1_TO_LANG2);
+            System.out.println("Modi geladen!"); // Test-Ausgabe für die Konsole
+        }
     }
 
     @FXML
@@ -58,17 +66,45 @@ public class ExamController {
 
     @FXML
     private void handleLoadSelectedSet() {
-        String selected = setSelectionCombo.getValue();
-        if (selected == null)
-            return;
+        // 1. Den Namen des gewählten Sets aus der ComboBox holen
+        String selectedSetName = setSelectionCombo.getValue();
 
-        currentSet = setManager.loadSet(selected);
-        if (currentSet != null) {
-            ratingSystem = new RatingSystem(currentSet, ExamMode.LANG1_TO_LANG2);
-            examArea.setVisible(true);
-            feedbackLabel.setText("");
-            updateUI();
+        // 2. Den gewählten Modus aus der NEUEN ComboBox holen
+        rating.ExamMode selectedMode = modeComboBox.getValue();
+
+        // 3. Sicherheitscheck: Wurde beides ausgewählt?
+        if (selectedSetName == null || selectedMode == null) {
+            progressLabel.setText("Fehler: Bitte Set und Modus wählen!");
+            return;
         }
+
+        try {
+            // 4. Das Vokabelset über den Manager laden
+            setclasses.Set selectedSet = setManager.loadSet(selectedSetName);
+
+            if (selectedSet != null) {
+                // 5. Das RatingSystem mit dem Set UND dem gewählten Modus initialisieren
+                this.ratingSystem = new rating.RatingSystem(selectedSet, selectedMode);
+
+                // 6. UI vorbereiten
+                progressLabel.setText("Set '" + selectedSetName + "' geladen. Viel Erfolg!");
+
+                // Das Panel mit der Abfrage sichtbar machen
+                examArea.setVisible(true);
+
+                // Das erste Wort anzeigen
+                updateUI();
+
+                // Optional: Eingabefeld fokussieren
+                inputField.requestFocus();
+            }
+        } catch (Exception e) {
+            progressLabel.setText("Fehler beim Laden des Sets: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        setSelectionCombo.setDisable(true);
+        modeComboBox.setDisable(true);
     }
 
     @FXML
