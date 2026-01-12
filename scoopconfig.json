@@ -2,38 +2,10 @@
     "apps": [
         {
             "Source": "main",
-            "Version": "25.01",
-            "Updated": "2025-12-11T14:21:02.4744341+01:00",
-            "Info": "",
-            "Name": "7zip"
-        },
-        {
-            "Source": "main",
-            "Version": "3.14.1",
-            "Updated": "2026-01-11T23:39:38.4969883+01:00",
-            "Info": "",
-            "Name": "dark"
-        },
-        {
-            "Source": "main",
-            "Version": "10.0.101",
-            "Updated": "2026-01-12T00:00:51.86714+01:00",
-            "Info": "",
-            "Name": "dotnet-sdk"
-        },
-        {
-            "Source": "main",
             "Version": "2.52.0",
             "Updated": "2026-01-04T13:37:29.7636808+01:00",
             "Info": "",
             "Name": "git"
-        },
-        {
-            "Source": "main",
-            "Version": "1.25.5",
-            "Updated": "2026-01-11T23:39:09.5614916+01:00",
-            "Info": "",
-            "Name": "go"
         },
         {
             "Source": "java",
@@ -44,45 +16,10 @@
         },
         {
             "Source": "main",
-            "Version": "9.2.1",
-            "Updated": "2026-01-04T13:39:04.6136365+01:00",
-            "Info": "",
-            "Name": "gradle"
-        },
-        {
-            "Source": "main",
-            "Version": "0.135.1",
-            "Updated": "2026-01-04T13:10:29.0738259+01:00",
-            "Info": "",
-            "Name": "jbang"
-        },
-        {
-            "Source": "main",
             "Version": "3.9.12",
             "Updated": "2026-01-04T13:28:05.9127363+01:00",
             "Info": "",
             "Name": "maven"
-        },
-        {
-            "Source": "main",
-            "Version": "8.2.3",
-            "Updated": "2026-01-11T23:33:23.8498766+01:00",
-            "Info": "",
-            "Name": "mongodb"
-        },
-        {
-            "Source": "extras",
-            "Version": "1.48.2",
-            "Updated": "2026-01-11T23:34:57.3014705+01:00",
-            "Info": "",
-            "Name": "mongodb-compass"
-        },
-        {
-            "Source": "main",
-            "Version": "25.2.1",
-            "Updated": "2026-01-11T23:36:41.3613053+01:00",
-            "Info": "",
-            "Name": "nodejs"
         },
         {
             "Source": "java",
@@ -90,27 +27,6 @@
             "Updated": "2026-01-04T13:28:03.653396+01:00",
             "Info": "",
             "Name": "openjdk"
-        },
-        {
-            "Source": "main",
-            "Version": "18.1",
-            "Updated": "2026-01-11T23:54:37.9435137+01:00",
-            "Info": "",
-            "Name": "postgresql"
-        },
-        {
-            "Source": "main",
-            "Version": "3.14.2",
-            "Updated": "2026-01-11T23:40:12.5090589+01:00",
-            "Info": "",
-            "Name": "python"
-        },
-        {
-            "Source": "main",
-            "Version": "3.51.2",
-            "Updated": "2026-01-11T23:50:02.1592204+01:00",
-            "Info": "",
-            "Name": "sqlite"
         }
     ],
     "buckets": [
@@ -133,4 +49,5 @@
             "Manifests": 324
         }
     ]
+
 }
